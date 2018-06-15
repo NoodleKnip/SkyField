@@ -23,17 +23,19 @@ public class CameraMovement : MonoBehaviour {
         camTransform = transform;
         cam = Camera.main;
     }
+
+   
+
     private void Update()
     {
+
+        if (Input.GetMouseButton(1))
+        {
         currentX -= Input.GetAxis("Mouse Y");
         currentY += Input.GetAxis("Mouse X");
+        }
+
         distance -= Input.GetAxis("Mouse ScrollWheel")*5;
-        // Get mouse wheel
-
-        // distance += mousewheelinput
-
-        //currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
-       
     }
 
     private void LateUpdate()
