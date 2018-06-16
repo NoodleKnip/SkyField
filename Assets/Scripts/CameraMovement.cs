@@ -12,6 +12,10 @@ public class CameraMovement : MonoBehaviour {
     private Transform camTransform;
     private Camera cam;
 
+    public float turnSpeed = 4.0f;
+    private float panSpeed = 4.0f;
+    public float zoomSpeed = 4.0f;
+
     private float distance = 10.0f;
     private float currentX = 0.0f;
     private float currentY = 0.0f; 
@@ -31,11 +35,11 @@ public class CameraMovement : MonoBehaviour {
 
         if (Input.GetMouseButton(1))
         {
-        currentX -= Input.GetAxis("Mouse Y");
-        currentY += Input.GetAxis("Mouse X");
+        currentX -= Input.GetAxis("Mouse Y")*turnSpeed;
+        currentY += Input.GetAxis("Mouse X")*turnSpeed;
         }
 
-        distance -= Input.GetAxis("Mouse ScrollWheel")*5;
+        distance -= Input.GetAxis("Mouse ScrollWheel")*zoomSpeed;
     }
 
     private void LateUpdate()
