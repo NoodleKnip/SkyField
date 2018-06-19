@@ -28,7 +28,6 @@ public class LayerManager : MonoBehaviour
 	public VerticalLayoutGroup layersList;
 	public RectTransform layerUIElem;
 	public string newLayerPrefix = "Layer";
-	public int test = 10;
 
 	private List<Layer> layers;
 	private int nextLayerSuffix = 1;
@@ -82,6 +81,8 @@ public class LayerManager : MonoBehaviour
 	{
 		Destroy(layer.gameObject);
 		Destroy(layer.uiElem.gameObject);
+
+		layers.Remove(layer);
 	}
 
 	public List<Layer> GetAllLayers()
