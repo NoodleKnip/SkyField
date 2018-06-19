@@ -56,12 +56,8 @@ public class LayerManager : MonoBehaviour
 		string newLayerName = newLayerPrefix + " " + newLayer.id;
 
 		// Create the physical object
-		newLayer.gameObject = Instantiate(masterAsset, new Vector3(0, 0, 0), Quaternion.identity, layerParent);
-		newLayer.gameObject.name = "Layer " + newLayer.id;
-
-		// Get the coords of the camera and add the layer opposite to the camera
-		Vector3 cameraFacingDir = Camera.main.transform.position.normalized * -1;
-		newLayer.gameObject.transform.rotation = Camera.main.transform.rotation;
+		newLayer.gameObject = Instantiate(masterAsset, new Vector3(0, 0, 0), Camera.main.transform.rotation, layerParent);
+		newLayer.gameObject.name = newLayerPrefix + " " + newLayer.id;
 
 		// Change the meshes' texture
 		Renderer meshRenderer = newLayer.gameObject.GetComponentInChildren<Renderer>();
@@ -70,15 +66,22 @@ public class LayerManager : MonoBehaviour
 
 		// New UI element
 		newLayer.uiElem = Instantiate(layerUIElem, layersList.transform);
-		newLayer.uiElem.name = "Layer " + newLayer.id;
+		newLayer.uiElem.name = newLayerPrefix + " " + newLayer.id;
 
 		LayerUIEntry layerUIEntry = newLayer.uiElem.GetComponent<LayerUIEntry>();
 		if(layerUIEntry)
 		{
-
+			layerUIEntry.SetLayer(newLayer);
+			layerUIEntry.SetText(newLayerPrefix + " " + newLayer.id);
 		}
 
 		nextLayerSuffix++;
+	}
+
+	public void DeleteLayer(Layer layer)
+	{
+		Destroy(layer.gameObject);
+		Destroy(layer.uiElem.gameObject);
 	}
 
 	public List<Layer> GetAllLayers()

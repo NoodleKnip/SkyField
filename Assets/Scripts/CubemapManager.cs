@@ -52,7 +52,8 @@ public class CubemapManager : MonoBehaviour
 
 		// Make a new texture to prepare for pixel dump
 		var tex = new Texture2D(newCubemap.width, newCubemap.height, TextureFormat.RGB24, false);
-		CubemapFace[] faces = new CubemapFace[] {
+		CubemapFace[] faces = new CubemapFace[]
+		{
 			CubemapFace.PositiveX, CubemapFace.NegativeX,
 			CubemapFace.PositiveY, CubemapFace.NegativeY,
 			CubemapFace.PositiveZ, CubemapFace.NegativeZ
