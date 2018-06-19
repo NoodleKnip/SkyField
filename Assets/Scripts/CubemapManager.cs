@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 
@@ -22,10 +23,16 @@ public class CubemapManager : MonoBehaviour
 		CaptureCubemap();
 	}
 
-	public void CaptureCubemap(string outputPath = "cubemap.png", int resolution = 1024)
+	public void CaptureCubemap(string outputPath = null, string outputName = "New Cubemap", int resolution = 1024)
 	{
+		if(outputPath == null)
+			outputPath = Path.GetFullPath(Application.dataPath + "/Cubemaps/..");
+		string fullDestPath = Path.Combine(outputPath, outputName);
+		Directory.CreateDirectory(fullDestPath);
+		Debug.Log(fullDestPath);
+
 		// Construct a new cubemap object
-		Cubemap newCubemap = new Cubemap(resolution, TextureFormat.RGBA32, false);
+		Cubemap newCubemap = new Cubemap(resolution, TextureFormat.RGB24, false);
 
 		// Setup the root object that will house the camera
 		GameObject cubemapRootObject = new GameObject("CubemapRenderer");
@@ -39,13 +46,22 @@ public class CubemapManager : MonoBehaviour
 		cubemapRendererCamera.backgroundColor = new Color(0, 0, 0);
 		cubemapRendererCamera.depth = 1; // Set the depth to be higher than a default camera so we don't see flashing
 
-		// Take snapshot
+		// Take snapshot and delete the object from the scene
 		cubemapRendererCamera.RenderToCubemap(newCubemap);
-
-		// Pull pixel data from the snapshot
-
-		// Save that pixel data to disk
-
 		Destroy(cubemapRootObject);
+
+		// Make a new texture to prepare for pixel dump
+		var tex = new Texture2D(newCubemap.width, newCubemap.height, TextureFormat.RGB24, false);
+		CubemapFace[] faces = new CubemapFace[] {
+			CubemapFace.PositiveX, CubemapFace.NegativeX,
+			CubemapFace.PositiveY, CubemapFace.NegativeY,
+			CubemapFace.PositiveZ, CubemapFace.NegativeZ
+		};
+
+		foreach(CubemapFace face in faces)
+		{
+			tex.SetPixels(newCubemap.GetPixels(face));
+			File.WriteAllBytes(fullDestPath + "/" + face.ToString() + ".png", tex.EncodeToPNG());
+		}
 	}
 }
