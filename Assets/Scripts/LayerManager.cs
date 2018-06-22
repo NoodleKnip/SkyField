@@ -21,7 +21,6 @@ public class LayerManager : MonoBehaviour
 
 	public Material masterMaterial;
 	public GameObject masterAsset;
-	public Texture testTexture;
 
 	[Header("Layers")]
 	public Transform layerParent;
@@ -52,7 +51,7 @@ public class LayerManager : MonoBehaviour
 		Layer newLayer = new Layer(nextLayerSuffix);
 		layers.Add(newLayer);
 
-		string newLayerName = newLayerPrefix + " " + newLayer.id;
+		//string newLayerName = newLayerPrefix + " " + newLayer.id;
 
 		// Create the physical object
 		newLayer.gameObject = Instantiate(masterAsset, new Vector3(0, 0, 0), Camera.main.transform.rotation, layerParent);
@@ -60,18 +59,18 @@ public class LayerManager : MonoBehaviour
 
 		// Change the meshes' texture
 		Renderer meshRenderer = newLayer.gameObject.GetComponentInChildren<Renderer>();
-		meshRenderer.material.mainTexture = testTexture;
+		//meshRenderer.material.mainTexture = testTexture;
 		meshRenderer.material.renderQueue = newLayer.id;
 
 		// New UI element
 		newLayer.uiElem = Instantiate(layerUIElem, layersList.transform);
 		newLayer.uiElem.name = newLayerPrefix + " " + newLayer.id;
 
-		LayerUIEntry layerUIEntry = newLayer.uiElem.GetComponent<LayerUIEntry>();
-		if(layerUIEntry)
+        LayerEntry layerEntry = newLayer.uiElem.GetComponent<LayerEntry>();
+		if(layerEntry)
 		{
-			layerUIEntry.SetLayer(newLayer);
-			layerUIEntry.SetText(newLayerPrefix + " " + newLayer.id);
+            layerEntry.SetLayer(newLayer);
+            layerEntry.SetText(newLayerPrefix + " " + newLayer.id);
 		}
 
 		nextLayerSuffix++;

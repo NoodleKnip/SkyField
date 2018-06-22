@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class LayerPicker3D : MonoBehaviour
 {
-	private Camera camera;
+	//private Camera camera;
 
 	void Start()
 	{
-		camera = GetComponent<Camera>();
+		//camera = GetComponent<Camera>();
 	}
 
 	void Update()
 	{
 		// Cast a ray out from the 2D mouse coords into 3D frustrum coords
-		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-		if(Physics.Raycast(ray, out hit))
-		{
+		//Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+		//RaycastHit hit;
+		//if(Physics.Raycast(ray, out hit))
+		//{
 
-		}
+		//}
 	}
 }

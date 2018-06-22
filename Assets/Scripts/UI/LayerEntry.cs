@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class LayerUIEntry : MonoBehaviour
+public class LayerEntry : MonoBehaviour
 {
 	public InputField textElement;
 	public Button deleteButton;
@@ -25,6 +25,11 @@ public class LayerUIEntry : MonoBehaviour
 	{
 		textElement.text = newText;
 	}
+
+    public void SetPreview(Texture2D texture)
+    {
+
+    }
 
 	private void OnDeleteClick()
 	{
