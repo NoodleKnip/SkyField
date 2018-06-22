@@ -403,7 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966b3a4cb923f8441863e3c0c6d2cd52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextElement: {fileID: 114692962108632932}
+  textElement: {fileID: 114692962108632932}
+  deleteButton: {fileID: 114978003236753690}
 --- !u!114 &114891228838583404
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -888,7 +888,6 @@ MonoBehaviour:
   layerUIElem: {fileID: 224143193082102008, guid: 099cf79191652c143826a08b613ed862,
     type: 2}
   newLayerPrefix: New Layer
-  test: 8
 --- !u!4 &954865928
 Transform:
   m_ObjectHideFlags: 0
